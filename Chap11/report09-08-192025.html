@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title> report00-08-192025 </title>
+</head>
+<body bgcolor="#ffffff">
+<basefont size="2">
+
+<h3>
+第９回
+</h3>
+
+<div align="right"> <table>
+<tr><th align="left"> 氏名       <td align="left"> 林橘平
+<tr><th align="left"> クラス     <td align="left"> 総合情報学コース3年
+<tr><th align="left"> 学生証番号 <td align="left"> 08-192025
+</table> </div>
+
+<h3>
+□課題9.1 - 11.3節 例 1: 透視投影による立方体の描画
+</h3>
+<h4> ○プログラムリスト </h4>
+<code> <pre>
+例題のため略
+</pre> </code>
+<h4> ○実行コマンド </h4>
+<samp> <pre>
+(base) MBP:Chap11 hayashikippei$ python3 cubeMatrix.py 
+eyeX eyeY eyeZ or [] -> 
+</pre> </samp>
+<h4> ○実行結果 </h4>
+<samp> <pre>
+</pre> </samp>
+<img src="cubeMatrix.png" WIDTH="50%">
+<h4> ○考察 </h4>
+<blockquote>
+透視投影による立方体の描画をするcubePositionをインポートした。window(),init(),argsInit()は
+cubePositionのものをそのまま使っている。reshape()を変更している。reshape()ではxyz座標系から
+視点座標系に変換するための行列計算を行なっている。11.1章に記載の通り、translateは平行移動行列、
+rotateX,rotateYはX,Y軸周りの回転行列である。変換はまずy軸方向に回転してからx軸方向に回転し、最後に
+平行移動するが、OpenGLでは順序が逆になるので逆からglMultMatrixd()を用いて計算している。
+loop()もreshape()を呼び出すので変更する必要がある。
+</blockquote>
+<p>
+
+<h3>
+□課題9.2 - 11.3節 例 2: 角度指定による立方体の描画
+</h3>
+<h4> ○プログラムリスト </h4>
+<code> <pre>
+例題のため略
+</pre> </code>
+<h4> ○実行コマンド </h4>
+<samp> <pre>
+(base) MBP:Chap11 hayashikippei$ python3 cubeAngle.py 
+FOV / near far / rotX  rotY rotZ/ [] -> 
+</pre> </samp>
+<h4> ○実行結果 </h4>
+<samp> <pre>
+</pre> </samp>
+<img src="cubeAngel.png" WIDTH="50%">
+<h4> ○考察 </h4>
+<blockquote>
+例1から新たな変数として、fieldOfView, near, far, depth, rotX, rotY, rotZを導入した。
+depthは-10で固定であり、その他の変数に関してはgetArgs(),argsInit()でキーボード入力から値を受け取っている。
+入力文字列が1つならfieldOfView,２つならnear, far、3つならrotX, rotY, rotZにそれぞれ値が代入される。
+fieldOfViewは画角、near, farはクリッピング面の前方、後方の視点からの距離。rotX, rotY, rotZは視線方向の角度の変数である。
+今回はデフォルト値で実行した。課題9.4で値を変えて実行していく。
+</blockquote>
+<p>
+
+<h3>
+□課題9.3 - 11.3節 章末課題：視点位置
+</h3>
+<h4> ○プログラムリスト </h4>
+<code> <pre>
+課題9.2と同じため略
+</pre> </code>
+<h4> ○実行コマンド </h4>
+<samp> <pre>
+(base) MBP:Chap11 hayashikippei$ python3 cubeAngle.py 
+</pre> </samp>
+<h4> ○実行結果 </h4>
+<samp> <pre>
+</pre> </samp>
+<img src="1-1_000.png" WIDTH="30%"><img src="1-1_-1020-30.png" WIDTH="30%"><img src="1-1_20-3030.png" WIDTH="30%"><img src="1-1_03015.png" WIDTH="30%"><img src="1-1_-20300.png" WIDTH="30%">
+<img src="1-1_20400.png" WIDTH="30%"><img src="1-1_101010.png" WIDTH="30%"><img src="1-1_505050.png" WIDTH="30%"><img src="1-1_909090.png" WIDTH="30%"><br>
+左上から右下に順番に、
+(rotX, rotY, rotZ) =<br> (0,0,0), (-10,20,-30), (20,-30,30), <br>(0,30,15), (-20,30,0), (20,40,0), <br>
+(10,10,10), (50,50,50) (90,90,90)
+<h4> ○考察 </h4>
+<blockquote>
+様々な方向からの画像を作成した。(0,0,0)の時は視点方向が正面なので正面の黄色い面しか見えない。
+(90,90,90)の時も同様に真横方向からなので青い面しか見えていない。その他の数値においても、それぞれ対応した方向から
+立方体を投影した画像が描画されている。
+</blockquote>
+<p>
+
+<h3>
+□課題9.4 - 11.3節 章末課題：画面とクリッピング面の効果
+</h3>
+<h4> ○プログラムリスト </h4>
+<code> <pre>
+課題9.2と同じため略
+</pre> </code>
+<h4> ○実行コマンド </h4>
+<samp> <pre>
+(base) MBP:Chap11 hayashikippei$ python3 cubeAngle.py 
+</pre> </samp>
+<h4> ○実行結果 </h4>
+<samp> <pre>
+</pre> </samp>
+<img src="fov0.png" WIDTH="30%"><img src="fov10.png" WIDTH="30%"><img src="fov40.png" WIDTH="30%">
+<img src="fov75.png" WIDTH="30%">
+<img src="fov120.png" WIDTH="30%"><img src="fov180.png" WIDTH="30%"><img src="fov200.png" WIDTH="30%"><img src="fov400.png" WIDTH="30%">
+<img src="fov600.png" WIDTH="30%">
+<br>左上から右下に順番に、fieldOfView=<br>
+0, 10, 40,<br>
+75, 120, 180,<br>
+200,400, 600<br>
+<img src="9_9.5.png" WIDTH="30%"><img src="9.9_10.png" WIDTH="30%"><img src="10_10.5.png" WIDTH="30%">
+<img src="11_12.png" WIDTH="30%"><img src="20_1.png" WIDTH="30%"><img src="9_9.png" WIDTH="30%">
+<br>左上から右下に順番に、(near, far)=<br>
+(9,9.5), (9.9,10), (10,10.5)<br>
+(11,12), (20,1),(9,9)<br>
+<h4> ○考察 </h4>
+<blockquote>
+まずfieldOfViewについて、0 ~ 120までは値が大きくなるにつれて段々立方体から遠ざかっていっている。
+fieldOfView=0の時は立方体の内側に入り込み、内部は黒く表示されている。fieldOfView=180の時は何も映らず、fieldOfView=200になった時も更に小さくなっているが、
+よく見ると立方体の視点方向が真逆になっていることがわかる。180を越えると真逆の方向から立方体を描画していることわかる。また、fieldOfView=400の時はfieldOfView=40の時と同じ大きさになっている。
+これは角度が360で一周するためであると考えられる。fieldOfView=600になると再び逆方向から立方体を投影しているのがわかる。<br>
+次にnear, farについて。これはクリッピング面を指定しており、(near,far)の範囲にある図形が描画される。
+そのためnear=far=9にすると、立方体を切り取った断面の図形が描画される。(一番右下)
+今depth=-10のため、near,farは[9,11]の範囲内を外れると、立方体の範囲外の何もない空間を描画する。(neaf,far=(11,12)の時。neaf,far=(4,5)の時も同様の結果。)
+near,farが[9,11]の範囲内にあると立方体の範囲内を描画する。
+near,farの差が小さくなるにつれて立方体を切り出す範囲も小さくなっていることが上側の３枚の画像からわかる。
+</blockquote>
+<p>
+
+
+<h3>
+□課題や授業に関して
+</h3>
+<h4> ○レポート作成に要した時間 </h4>
+<blockquote>
+2時間
+</blockquote>
+<p>
+<h4> ○特に苦労した点 </h4>
+<blockquote>
+なし
+</blockquote>
+<p>
+<h4> ○授業についての感想や希望 </h4>
+<blockquote>
+なし
+</blockquote>
+<p>
+
+</body>
+</html>

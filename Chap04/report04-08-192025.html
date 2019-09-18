@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title> report00-08-192025 </title>
+</head>
+<body bgcolor="#ffffff">
+<basefont size="2">
+
+<h3>
+第4回
+</h3>
+
+<div align="right"> <table>
+<tr><th align="left"> 氏名       <td align="left"> 林橘平
+<tr><th align="left"> クラス     <td align="left"> 総合情報学コース3年
+<tr><th align="left"> 学生証番号 <td align="left"> 08-192025
+</table> </div>
+
+<h3>
+□課題4.1 - 4.3節 例 1:マウスイベントによる背景色の変更
+</h3>
+<h4> ○プログラムリスト </h4>
+<code> <pre>
+例題のため略
+</pre> </code>
+<h4> ○実行コマンド </h4>
+<samp> <pre>
+    MBP:Chap04 hayashikippei$ python3 background.py
+</pre> </samp>
+<h4> ○実行結果 </h4>
+<samp> <pre>
+</pre> </samp>
+<img src="background.png" WIDTH="50%">
+<br>スクリーンショットを取れなかったのだが、クリックした状態では赤色になり、離すと上の緑色に戻っていた。
+<h4> ○考察 </h4>
+<blockquote>
+マウスを押している間と離した時の関数、pressedとreleasedを定義した。pressed, released ではそれぞれ、canvasをグローバル変数にしてcreate_rectangleで
+背景と同じ大きさでそれぞれ赤、緑の長方形を作り出している。canvasをグローバル変数で定義することで
+main()でpressed, releasedが実行された時に関数の中で変数canvasを扱え、色を変えることができる。
+canvasをpressed, released の引数として定義することができないため、このように記述している。
+</blockquote>
+<p>
+
+<h3>
+□課題4.2 - 4.3節 例2:カーソル位置の獲得と描画
+</h3>
+<h4> ○プログラムリスト </h4>
+<code> <pre>
+例題のため略
+</pre> </code>
+<h4> ○実行コマンド </h4>
+<samp> <pre>
+    MBP:Chap04 hayashikippei$ python3 marker.py
+</pre> </samp>
+<h4> ○実行結果 </h4>
+<samp> <pre>
+</pre> </samp>
+<img src="marker.png" WIDTH="50%">
+<h4> ○考察 </h4>
+<blockquote>
+３つのボタンが押された時に応じてそれぞれ色が異なる、押された座標を中心とする半径Rの正方形を描く関数を定義する。
+main()でそれぞれのボタンが押されたイベントに応じて３つの関数を呼び出すことで３色の正方形を描いている。
+</blockquote>
+<p>
+
+<h3>
+□課題4.3 - 4.3節 例3:マウスによる線分の描画
+</h3>
+<h4> ○プログラムリスト </h4>
+<code> <pre>
+例題のため略
+</pre> </code>
+<h4> ○実行コマンド </h4>
+<samp> <pre>
+    MBP:Chap04 hayashikippei$ python3 rubberband.py
+</pre> </samp>
+<h4> ○実行結果 </h4>
+<samp> <pre>
+</pre> </samp>
+<img src="rubberband.png" WIDTH="50%">
+<h4> ○考察 </h4>
+<blockquote>
+マウスが押された時に呼び出される関数pressedではglobal変数StartX, StartYに押された時の座標を記録する。
+ドラッグしている間に呼び出される関数draggedではまず、背景と同じ大きさの白い長方形を描画することで背景をクリアする。
+そしてpressedで値を記録したStartX, StartYを呼び出し、現在マウスがある座標(x,y)と始点の座標(StartX, StartY)を結ぶ
+直線を描画する。これをドラッグの間繰り返し、(x,y)は(eventX, eventY)が変更すると変わるのでマウスの動きに合わせた線分を描くことができる。
+</blockquote>
+<p>
+
+<h3>
+□課題4.4 - 4.3節 例4:マウスを用いたお絵描き
+</h3>
+<h4> ○プログラムリスト </h4>
+<code> <pre>
+例題のため略
+</pre> </code>
+<h4> ○実行コマンド </h4>
+<samp> <pre>
+    MBP:Chap04 hayashikippei$ python3 draw.py
+</pre> </samp>
+<h4> ○実行結果 </h4>
+<samp> <pre>
+</pre> </samp>
+<img src="draw.png" WIDTH="50%">
+<h4> ○考察 </h4>
+<blockquote>
+上と同様に、マウスが押された時に呼び出される関数pressedではglobal変数oldX, oldYに押された時の座標を記録する。
+ドラッグしている間に呼び出される関数draggedではまず現在のマウスの座標を(x,y)に記録する。そして始点(oldX,oldY)と(x,y)を結ぶ
+直線を描画し、今度は(oldX,oldY)に(x,y)の座標を記録する。そしてマウスを動かすと新たな座標が(x,y)に記録され、(oldX,oldY)と(x,y)を結ぶ
+直線が描画される。こうして短い直線をつなげていくことでマウスで好きな線を描くことができる。
+</blockquote>
+<p>
+
+<h3>
+□課題4.5 - 4.3節 章末課題:マウスイベントの確認
+</h3>
+<h4> ○プログラムリスト </h4>
+<code> <pre>
+from tkinter import *                    # tkinterモジュールのimport
+
+W, H = (200, 200)                        # canvasの幅と高さ
+
+def pressed(event):                      # Button1 pressed コールバック関数
+  global canvas                          # 大域変数 canvas
+  canvas.create_rectangle((2, 2), (W+3, H+3), outline='', fill='#ff0000')
+                                         # 背景の赤長方形での描画
+
+def released(event):                     # Button1 released コールバック関数
+  global canvas                          # 大域変数 canvas
+  canvas.create_rectangle((2, 2), (W+3, H+3), outline='', fill='#00ff00')
+                                         # 背景の緑長方形での描画
+
+def enter(event):
+    global canvas
+    canvas.create_rectangle((2, 2), (W+3, H+3), outline='', fill='#0000ff')         
+
+def leave(event):
+    global canvas
+    canvas.create_rectangle((2, 2), (W+3, H+3), outline='', fill='#ffff00')      
+
+def main():                              # main関数
+  global canvas                          # 大域変数 canvas
+  root = Tk()                            # ルートフレームの作成
+  canvas = Canvas(root, width = W, height = H, bg='#00ff00') # canvasの作成
+  canvas.pack()                          # canvasの配置確定
+  canvas.bind('<Button-1>', pressed)     # Button1 pressed コールバック関数
+  canvas.bind('<ButtonRelease-1>', released) # Button1 released コールバック関数
+  canvas.bind('<Enter>', enter)
+  canvas.bind('<Leave>', leave)
+  root.mainloop()                        # ルートフレームの実行ループ開始
+
+if __name__ == '__main__':               # 起動の確認 (コマンドラインからの起動)
+  main()                                 # main関数の呼出
+</pre> </code>
+<h4> ○実行コマンド </h4>
+<samp> <pre>
+        MBP:Chap04 hayashikippei$ python3 background2.py
+</pre> </samp>
+<h4> ○実行結果 </h4>
+<samp> <pre>
+</pre> </samp>
+初期状態<br>
+<img src="background2_1.png" WIDTH="50%">
+<br>マウスカーソルの進入<br>
+<img src="background2_2.png" WIDTH="50%">
+<br>スクリーンショットは撮れなかったがクリックすると赤になり、離すと上の緑色に戻った。<br>
+マウスカーソル退出<br>
+<img src="background2_3.png" WIDTH="50%">
+<h4> ○考察 </h4>
+<blockquote>
+課題1のプログラムに、マウスカーソルの進入と退出によって呼び出される関数enter, leaveを新たに定義した。
+pressed , releasedと同じようにglobal変数canvasを呼び出し、canvas.create_rectangleによって背景色を変える。
+黄色は赤と緑を混ぜれば良いので、#ffff00で再現した。
+</blockquote>
+<p>
+
+<h3>
+□課題4.5 - 4.3節 章末課題:マウスによる円の描画
+</h3>
+<h4> ○プログラムリスト </h4>
+<code> <pre>
+from tkinter import *                    # tkinterモジュールのimport
+import math
+
+(W,H) = (400,400)
+
+def pressed1(event):                     
+  global startX, startY                
+  startX, startY  = (event.x, event.y)
+
+def dragged(event):                      
+  global canvas, startX, startY                     
+  canvas.create_rectangle((2,2), (W+3, H+3), outline='', fill='#ffffff')
+  x, y = (event.x, event.y)
+  r = math.sqrt((x - startX)**2 + (y - startY)**2)
+  canvas.create_oval((startX -r , startY - r), (startX + r, startY +r))
+
+                                         
+def main():                              # main関数
+  global canvas                          # 大域変数 canvas 
+  root = Tk()                            # ルートフレームの作成
+  canvas = Canvas(root, width = W, height = H, bg='#ffffff') # canvasの作成
+  canvas.pack()                          # canvasの配置確定
+  canvas.bind('<Button-1>', pressed1)     # Button1 pressed コールバック関数
+  canvas.bind('<B1-Motion>', dragged)     # Button1 pressed コールバック関数
+  root.mainloop()                        # ルートフレームの実行ループ開始
+
+if __name__ == '__main__':               # 起動の確認 (コマンドラインからの起動)
+  main()                                 # main関数の呼出
+</pre> </code>
+<h4> ○実行コマンド </h4>
+<samp> <pre>
+        MBP:Chap04 hayashikippei$ python3 circledraw.py
+</pre> </samp>
+<h4> ○実行結果 </h4>
+<samp> <pre>
+</pre> </samp>
+<img src="circledraw.png" WIDTH="50%">
+<h4> ○考察 </h4>
+<blockquote>
+課題3のdragged()を変更して円を描くようにした。プレスした位置(startX, startY)とマウスカーソルの現在の位置の距離をrに記録し、
+(startX, startY)を中心とした半径rの円をcreate_ovalで描いた。
+</blockquote>
+<p>   
+     
+<h3>
+□課題や授業に関して
+</h3>
+<h4> ○レポート作成に要した時間 </h4>
+<blockquote>
+3時間
+</blockquote>
+<p>
+<h4> ○特に苦労した点 </h4>
+<blockquote>
+なし
+</blockquote>
+<p>
+<h4> ○授業についての感想や希望 </h4>
+<blockquote>
+なし
+</blockquote>
+<p>
+
+</body>
+</html>
